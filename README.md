@@ -2,7 +2,7 @@
 
 > Site vitrine de **Noé Espaignet** — photographe de rue bordelais, 18 ans, pratiquant la photographie argentique avec une chambre du XIXe siècle fabriquée par **A.Tardy** (Lyon).
 
-🌐 **Site en ligne** : [espaignet-photography.fr](www.espaignet.ovh)
+🌐 **Site en ligne** : [www.espaignet.ovh](www.espaignet.ovh)
 
 ---
 
