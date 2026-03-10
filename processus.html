@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Processus & Technique — Espaignet Photography</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:wght@300;400;500&display=swap');
+:root{--cream:#f5f0e8;--sepia:#c8a97e;--dark:#111009;--gold:#b8923a;--light-sepia:#e8dcc8;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--dark);color:var(--cream);font-family:'Cormorant Garamond',serif;font-weight:300;overflow-x:hidden;cursor:none;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:900;opacity:.4;}
+.cursor{width:14px;height:14px;border:1px solid var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .15s;}
+.cursor-dot{width:4px;height:4px;background:var(--gold);border-radius:50%;position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+.navbar{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;justify-content:space-between;align-items:center;padding:1.6rem 5rem;transition:background .4s;}
+.navbar.scrolled{background:rgba(17,16,9,.97);border-bottom:1px solid rgba(184,146,58,.15);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:.95rem;letter-spacing:.3em;text-transform:uppercase;color:var(--cream);text-decoration:none;}
+.nav-links{display:flex;gap:2.5rem;align-items:center;}
+.nav-links a{font-size:.75rem;letter-spacing:.25em;text-transform:uppercase;color:var(--sepia);text-decoration:none;transition:color .3s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-links a.nav-cta{border:1px solid var(--gold);padding:.5rem 1.2rem;color:var(--gold);}
+.nav-links a.nav-cta:hover{background:var(--gold);color:var(--dark);}
+
+/* PAGE HEADER */
+.page-header{padding:11rem 5rem 5rem;text-align:center;}
+.eyebrow{font-size:.72rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:1.2rem;display:block;opacity:0;animation:fadeUp 1s .2s forwards;}
+.page-header h1{font-family:'Playfair Display',serif;font-size:clamp(3rem,6vw,5.5rem);font-weight:400;opacity:0;animation:fadeUp 1s .4s forwards;}
+.page-header h1 em{font-style:italic;color:var(--gold);}
+.page-header-line{width:60px;height:1px;background:var(--gold);margin:2rem auto;opacity:0;animation:fadeUp 1s .5s forwards;}
+.page-header p{font-size:1.1rem;font-style:italic;color:var(--sepia);opacity:0;animation:fadeUp 1s .6s forwards;}
+
+/* STEPS */
+.steps-section{padding:6rem 5rem;}
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(184,146,58,.1);border:1px solid rgba(184,146,58,.1);}
+.step-card{padding:4rem;background:var(--dark);position:relative;overflow:hidden;}
+.step-card::after{content:'';position:absolute;inset:0;background:rgba(184,146,58,.03);opacity:0;transition:opacity .4s;}
+.step-card:hover::after{opacity:1;}
+.step-num{font-family:'Playfair Display',serif;font-size:6rem;font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(184,146,58,.15);line-height:1;margin-bottom:1rem;}
+.step-card h3{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:400;margin-bottom:1.2rem;}
+.step-card h3 em{font-style:italic;color:var(--gold);}
+.step-card p{font-size:1rem;line-height:2;color:var(--sepia);}
+.step-card p strong{color:var(--cream);font-weight:400;}
+.step-icon{font-size:1.8rem;margin-bottom:1rem;opacity:.7;}
+
+/* TECHNIQUE */
+.technique{padding:7rem 5rem;border-top:1px solid rgba(184,146,58,.15);}
+.technique-header{text-align:center;margin-bottom:5rem;}
+.technique-header h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.5rem);font-weight:400;}
+.technique-header h2 em{font-style:italic;color:var(--gold);}
+.technique-header p{color:var(--sepia);font-style:italic;font-size:1.05rem;margin-top:1rem;}
+
+.technique-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.tech-card{border:1px solid rgba(184,146,58,.2);padding:2.5rem 2rem;transition:border-color .4s,transform .4s;}
+.tech-card:hover{border-color:var(--gold);transform:translateY(-6px);}
+.tech-card-num{font-family:'Playfair Display',serif;font-size:3rem;font-style:italic;color:rgba(184,146,58,.3);margin-bottom:1rem;}
+.tech-card h4{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:400;margin-bottom:.8rem;color:var(--cream);}
+.tech-card p{font-size:.95rem;line-height:1.9;color:var(--sepia);}
+
+/* FAQ */
+.faq{padding:7rem 5rem;border-top:1px solid rgba(184,146,58,.15);max-width:900px;margin:0 auto;}
+.faq h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3vw,2.8rem);font-weight:400;margin-bottom:3rem;text-align:center;}
+.faq h2 em{font-style:italic;color:var(--gold);}
+.faq-item{border-bottom:1px solid rgba(184,146,58,.15);padding:2rem 0;}
+.faq-q{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:400;color:var(--cream);cursor:none;display:flex;justify-content:space-between;align-items:center;}
+.faq-q::after{content:'+';font-size:1.5rem;color:var(--gold);transition:transform .3s;}
+.faq-item.open .faq-q::after{transform:rotate(45deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;}
+.faq-item.open .faq-a{max-height:300px;padding-top:1.2rem;}
+.faq-a p{font-size:1rem;line-height:2;color:var(--sepia);}
+
+/* CTA */
+.proc-cta{padding:6rem 5rem;text-align:center;border-top:1px solid rgba(184,146,58,.15);}
+.proc-cta h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:400;margin-bottom:1rem;}
+.proc-cta h2 em{color:var(--gold);font-style:italic;}
+.proc-cta p{color:var(--sepia);font-style:italic;margin-bottom:3rem;font-size:1.05rem;}
+.btn{display:inline-block;padding:.9rem 2.5rem;border:1px solid var(--gold);color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:.85rem;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;transition:all .4s;position:relative;overflow:hidden;cursor:none;}
+.btn::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1;}
+.btn:hover{color:var(--dark);}
+.btn:hover::before{transform:scaleX(1);}
+
+footer{background:var(--dark);padding:3rem 5rem;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(184,146,58,.15);}
+.footer-logo{font-family:'Playfair Display',serif;font-size:.9rem;letter-spacing:.2em;text-transform:uppercase;}
+.footer-copy{font-size:.78rem;color:var(--sepia);}
+.footer-links a{color:var(--sepia);text-decoration:none;font-size:.78rem;margin-left:2rem;transition:color .3s;}
+.footer-links a:hover{color:var(--gold);}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+@media(max-width:900px){
+  .steps-grid,.technique-grid{grid-template-columns:1fr;}
+  .steps-section,.technique,.faq,.proc-cta{padding:5rem 2rem;}
+  .navbar{padding:1.2rem 2rem;}.nav-links{gap:1rem;}.nav-links a{font-size:.65rem;}
+  footer{flex-direction:column;gap:1rem;text-align:center;padding:2rem;}
+  .page-header{padding:8rem 2rem 3rem;}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">Espaignet Photography</a>
+  <div class="nav-links">
+    <a href="galerie.html">Galerie</a>
+    <a href="apropos.html">À propos</a>
+    <a href="processus.html" class="active">Processus</a>
+    <a href="tarifs.html">Tarifs</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+</nav>
+
+<div class="page-header">
+  <span class="eyebrow">De la rencontre au tirage</span>
+  <h1>Processus &<br><em>Technique</em></h1>
+  <div class="page-header-line"></div>
+  <p>Comprendre la magie avant de la vivre.</p>
+</div>
+
+<section class="steps-section">
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-num">I</div>
+      <div class="step-icon">🤝</div>
+      <h3>La <em>rencontre</em></h3>
+      <p>Tout commence dans la rue. Noé aborde les passants avec sa chambre sur le trépied, explique sa démarche avec passion. <strong>Aucune obligation, juste une invitation</strong> à sortir du temps ordinaire. Cette spontanéité est au cœur de son travail : les meilleurs portraits naissent de l'inattendu.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">II</div>
+      <div class="step-icon">⏳</div>
+      <h3>La <em>pose</em></h3>
+      <p>Le sujet s'installe. La chambre A.Tardy est mise au point sur le verre dépoli. Noé règle l'exposition, vérifie la lumière. Puis vient le moment suspendu : <strong>quelques secondes à plusieurs minutes d'immobilité</strong>, selon la lumière disponible. Un temps rare, presque méditatif.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">III</div>
+      <div class="step-icon">🧪</div>
+      <h3>Le <em>développement</em></h3>
+      <p>Le châssis contenant le papier 13×18 est rapporté en laboratoire. Le développement chimique révèle l'image sur le papier, étape par étape, dans l'obscurité rouge du labo. <strong>Chaque seconde compte.</strong> Trop peu et l'image reste fantôme. Trop longtemps et elle brûle dans le révélateur.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-num">IV</div>
+      <div class="step-icon">📦</div>
+      <h3>La <em>livraison</em></h3>
+      <p>Le tirage séché, monté et signé est soigneusement emballé. <strong>Livraison à domicile incluse dans tous les tarifs</strong>, par courrier suivi. Vous recevrez un objet unique, portant la lumière exacte du jour où vous vous êtes croisés dans la rue de Bordeaux.</p>
+    </div>
+  </div>
+</section>
+
+<section class="technique">
+  <div class="technique-header reveal">
+    <h2>La <em>technique</em> en détail</h2>
+    <p>Tout ce que vous avez toujours voulu savoir sur la photographie du XIXe siècle.</p>
+  </div>
+  <div class="technique-grid">
+    <div class="tech-card reveal">
+      <div class="tech-card-num">01</div>
+      <h4>La chambre grand format</h4>
+      <p>Une chambre photographique est un boîtier en bois extensible, muni d'un soufflet en cuir. On y fixe un objectif à l'avant, et un châssis contenant le support sensible à l'arrière. La mise au point se fait sur un verre dépoli, à la loupe, tête sous le tissu noir.</p>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-num">02</div>
+      <h4>Le papier photo en direct</h4>
+      <p>Contrairement à un film négatif, Noé expose directement du papier photographique dans la chambre. Le résultat est un négatif papier — l'image apparaît inversée — qui peut être retourné pour donner un positif par transparence, ou tiré en contact.</p>
+    </div>
+    <div class="tech-card reveal">
+      <div class="tech-card-num">03</div>
+      <h4>Le format 13×18 cm</h4>
+      <p>Ce format, courant au XIXe siècle, donne des portraits avec une définition et une présence que le numérique ne peut pas reproduire. Chaque grain de la surface est réel, chaque détail du visage est là, figé dans la couche de gélatine argentique.</p>
+    </div>
+  </div>
+</section>
+
+<section class="faq" style="max-width:100%;padding:7rem 5rem;">
+  <h2>Questions <em>fréquentes</em></h2>
+  <div class="faq-item reveal">
+    <div class="faq-q">Combien de temps dure une pose ?</div>
+    <div class="faq-a"><p>En extérieur par bonne lumière, une exposition dure entre 1 et 5 secondes. Par temps couvert ou en fin de journée, cela peut aller jusqu'à plusieurs dizaines de secondes. Il faut rester immobile mais ce n'est pas aussi douloureux qu'au XIXe siècle, promis.</p></div>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">Est-ce que je peux choisir la pose ?</div>
+    <div class="faq-a"><p>Oui, dans les grandes lignes. Noé vous guide pour que la lumière tombe au mieux sur votre visage, mais vous restez libre de votre expression et de votre posture. Les portraits les plus beaux sont souvent ceux où le sujet s'oublie un peu.</p></div>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">Combien de temps avant de recevoir le tirage ?</div>
+    <div class="faq-a"><p>Le développement et le séchage prennent 24 à 48h. Ajoutez ensuite le délai postal (2 à 5 jours ouvrés en France). Comptez donc environ une semaine entre la séance et la réception de votre tirage.</p></div>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">Le tirage peut-il être encadré ?</div>
+    <div class="faq-a"><p>Absolument. Le format 13×18 cm correspond à des cadres standards disponibles partout. Noé peut également vous conseiller sur l'encadrement artisanal si vous souhaitez aller plus loin dans la démarche vintage.</p></div>
+  </div>
+  <div class="faq-item reveal">
+    <div class="faq-q">Est-ce que l'image peut rater ?</div>
+    <div class="faq-a"><p>C'est rare mais possible — le bougé, une mauvaise lumière, un problème de développement. Dans ce cas, Noé vous propose une nouvelle séance gratuitement. La rareté du procédé implique une part d'imprévu, et c'est aussi ce qui rend chaque tirage réussi si précieux.</p></div>
+  </div>
+</section>
+
+<section class="proc-cta reveal">
+  <h2>Convaincu ?<br>Laissez-vous <em>convaincre.</em></h2>
+  <p>Voir les tarifs ou me contacter directement pour organiser une séance.</p>
+  <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+    <a href="tarifs.html" class="btn">Voir les tarifs</a>
+    <a href="contact.html" class="btn" style="border-color:rgba(184,146,58,.4);color:var(--sepia);">Me contacter</a>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">Espaignet Photography</span>
+  <span class="footer-copy">© 2024 · Noé Espaignet · Bordeaux</span>
+  <div class="footer-links">
+    <a href="galerie.html">Galerie</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script>
+const cursor=document.getElementById('cursor'),dot=document.getElementById('cursorDot');
+document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px';dot.style.left=e.clientX+'px';dot.style.top=e.clientY+'px';});
+window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60));
+document.querySelectorAll('.faq-item').forEach(item=>{item.querySelector('.faq-q').addEventListener('click',()=>{item.classList.toggle('open');});});
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*100);obs.unobserve(e.target);}});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
